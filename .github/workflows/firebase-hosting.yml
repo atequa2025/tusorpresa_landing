@@ -2,31 +2,29 @@ name: Deploy TuSorpresa to Firebase Hosting
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout código
+        uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Instala Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.22.1"
+          flutter-version: '3.22.0'
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build web
+      - name: Ejecuta build web
         run: flutter build web
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy a Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TUSORPRESA_2025 }}"
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TUSORPRESA_2025 }}'
           channelId: live
           projectId: tusorpresa-2025
